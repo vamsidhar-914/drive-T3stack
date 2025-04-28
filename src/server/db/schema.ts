@@ -5,3 +5,4 @@ export const users = singlestoreTable("user_table", {
   name: text("name"),
   age: int("age")
 })
+
