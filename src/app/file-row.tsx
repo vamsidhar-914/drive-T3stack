@@ -1,16 +1,16 @@
 import { FileIcon, Folder, Link } from "lucide-react";
-import type { Folder as FolderType ,File} from "~/lib/mock-data";
+import type { files, folders } from "~/server/db/schema";
 
 type FileRowPropsType = {
-    file: File,
+    file: typeof files.$inferSelect;
 }
 
-export function FileRow({ file}: FileRowPropsType) {
+export function FileRow({ file }: FileRowPropsType) {
     return(
         <li key={file.id} className="px-6 py-4 border-b border-gray-700 hover:bg-gray-700">
                   <div className="grid grid-cols-12 gap-4 items-center">
                     <div className="col-span-6 flex items-center">
-                        <a href={file.url} className="flex items-center text-gray-100 hover:text-gray-100 hover:text-blue-400" target="_blank">
+                        <a href={file.url!} className="flex items-center text-gray-100 hover:text-gray-100 hover:text-blue-400" target="_blank">
                           <FileIcon className="mr-3" size={20} />
                           {file.name}
                         </a>
@@ -28,7 +28,7 @@ export function FileRow({ file}: FileRowPropsType) {
 }
 
 type FolderRowpropsType = {
-    folder: FolderType,
+    folder: typeof folders.$inferSelect,
     handleFolderClick: () => void
 }
 
