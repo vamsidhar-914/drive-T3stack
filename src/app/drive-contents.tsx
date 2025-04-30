@@ -6,44 +6,15 @@ import { Button } from "~/components/ui/button";
 import { Upload, ChevronRight } from 'lucide-react';
 import { FileRow, FolderRow } from "./file-row";
 import type { files, folders } from "~/server/db/schema";
+import Link from "next/link";
 
 type GoodleDriveCloneProps = {
   files: typeof files.$inferSelect[];
   folders: typeof folders.$inferSelect[];
+  parents: typeof folders.$inferSelect[];
 }
 
-export default function DriveContents({ files,folders}: GoodleDriveCloneProps) {
-  const [currentFolder, setCurrentFolder] = useState<number>(1);
-
-  // const getCurrentFiles = () => {
-  //   return mockFiles.filter((file) => file.parent === currentFolder);
-  // }
-  // const getCurrentFolders = () => {
-  //   return mockFolders.filter((folder) => folder.parent === currentFolder)
-  // }
-
-  // console.log(getCurrentFiles());
-  // console.log(getCurrentFolders());
-
-  const handleFolderClick = (folderId: number) => {
-    setCurrentFolder(folderId);
-  }
-
-  const breadcrumbs =  useMemo(() => {
-    const breadcrumbs = [];
-    let current = currentFolder;
-
-    while(current !== 1) {
-      const folder = folders.find((folder) => folder.id === current);
-      if (folder) {
-        breadcrumbs.unshift(folder);
-        current = folder.parent ?? 1
-      } else {
-        break;
-      }
-    }
-    return breadcrumbs;
-  },[currentFolder,folders]);
+export default function DriveContents({ files,folders ,parents}: GoodleDriveCloneProps) {
 
   const handleUplaod = () => {
     alert("upload functionality not implemented yet");
@@ -54,13 +25,11 @@ export default function DriveContents({ files,folders}: GoodleDriveCloneProps) {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
-            <Button onClick={() => setCurrentFolder(1)} variant="ghost" className="text-gray-300 hover:text-white mr-2">
-              My Drive
-            </Button>
-            {breadcrumbs.map((folder) => ( 
+            <Link href="/f/1" className="mr-2 text-gray-300 hover:text-white">My Drive</Link>
+            {parents.map((folder) => ( 
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
-                <Button onClick={() => handleFolderClick(folder.id)} variant="ghost" className="text-gray-300 hover:text-white">{folder.name}</Button>
+                <Link href={`/f/${folder.id}`} className="text-gray-300 hover:text-white">{folder.name}</Link>
               </div>
             ))}
           </div>
@@ -79,9 +48,7 @@ export default function DriveContents({ files,folders}: GoodleDriveCloneProps) {
             </div>
             <ul>
               {folders.map((folder) => (
-                <FolderRow key={folder.id} folder={folder} handleFolderClick={() => {
-                  handleFolderClick(folder.id)
-                }} />
+                <FolderRow key={folder.id} folder={folder}  />
               ))}
               {files.map((file) => (
                 <FileRow key={file.id} file={file} />
