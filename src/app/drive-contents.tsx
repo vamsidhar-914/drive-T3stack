@@ -1,13 +1,12 @@
 "use client"
 
-import { useMemo, useState } from "react";
-import { mockFiles, mockFolders } from "../lib/mock-data";
-import { Button } from "~/components/ui/button";
-import { Upload, ChevronRight } from 'lucide-react';
+import {  ChevronRight } from 'lucide-react';
 import { FileRow, FolderRow } from "./file-row";
 import type { files, folders } from "~/server/db/schema";
 import Link from "next/link";
-import { SignedOut ,SignedIn, UserButton, SignUpButton, SignInButton } from "@clerk/nextjs";
+import { SignedOut ,SignedIn, UserButton, SignInButton } from "@clerk/nextjs";
+import { UploadButton } from "~/components/uploadthing";
+import { useRouter } from 'next/navigation';
 
 type GoodleDriveCloneProps = {
   files: typeof files.$inferSelect[];
@@ -17,9 +16,7 @@ type GoodleDriveCloneProps = {
 
 export default function DriveContents({ files,folders ,parents}: GoodleDriveCloneProps) {
 
-  const handleUplaod = () => {
-    alert("upload functionality not implemented yet");
-  }
+    const navigate = useRouter()
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
@@ -60,6 +57,16 @@ export default function DriveContents({ files,folders ,parents}: GoodleDriveClon
               ))}
             </ul>
         </div>  
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              console.log("Files: ", res);
+              navigate.refresh()
+            }}
+            onUploadError={(error: Error) => {
+              alert(`ERROR! ${error.message}`);
+            }}
+        />
       </div>
     </div>
   )
