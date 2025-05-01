@@ -10,3 +10,4 @@
 - [ ] Make sure sort order is consistent
 - [ ] Add delete
 - [ ] Real HomePage + onBoarding
+- [ ] Need to fix uploadthing image style fix
