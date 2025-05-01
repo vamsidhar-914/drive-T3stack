@@ -11,3 +11,4 @@
 - [ ] Add delete
 - [ ] Real HomePage + onBoarding
 - [ ] Need to fix uploadthing image style fix
+- [ ] need to add toast for showing errors
