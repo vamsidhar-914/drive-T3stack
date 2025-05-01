@@ -4,6 +4,7 @@ import {
 } from '@clerk/nextjs'
 import { Geist } from "next/font/google";
 import "./../styles/globals.css";
+import { PostHogProvider } from "./_providers/posthogProvider";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -22,7 +23,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
-      <body>{children}</body>
+      <body>
+      <PostHogProvider>
+        {children}
+      </PostHogProvider>
+        </body>
     </html>
     </ClerkProvider>
   );
