@@ -7,6 +7,7 @@ import { Upload, ChevronRight } from 'lucide-react';
 import { FileRow, FolderRow } from "./file-row";
 import type { files, folders } from "~/server/db/schema";
 import Link from "next/link";
+import { SignedOut ,SignedIn, UserButton, SignUpButton, SignInButton } from "@clerk/nextjs";
 
 type GoodleDriveCloneProps = {
   files: typeof files.$inferSelect[];
@@ -33,10 +34,14 @@ export default function DriveContents({ files,folders ,parents}: GoodleDriveClon
               </div>
             ))}
           </div>
-          <Button onClick={handleUplaod} className="bg-blue-600 text-white hover:bg-blue-700">
-            <Upload className="mr-2" size={20} />
-            upload
-          </Button>
+         <div className="cursor-pointer">
+         <SignedOut>
+              <SignInButton />
+          </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+         </div>
         </div>
         <div className="bg-gray-800 rounded-lg shadow-xl">
             <div className="px-6 py-4 border-gray-700">
