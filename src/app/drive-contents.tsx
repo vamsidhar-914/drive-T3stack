@@ -62,7 +62,7 @@ export default function DriveContents({ files,folders ,parents,currentFolderId}:
           input={{
             folderId: currentFolderId
           }}
-            endpoint="imageUploader"
+            endpoint="driveUploader"
             onClientUploadComplete={(res) => {
               console.log("Files: ", res);
               navigate.refresh()

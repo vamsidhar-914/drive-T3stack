@@ -4,12 +4,14 @@
 
 - [x] Set up database and data model
 - [x] Move folder open state to URL
-- [ ] Add Authentication
-- [ ] Add file uploading functionality
+- [x] Add Authentication
+- [x] Add file uploading functionality
 - [ ] Add analytics
  
- ## 1-27-2025
- 
- - [ ] Change folders to link components, remove all client state
- - [ ] Clean up the database and data fetching patterns
- - [ ] Real homepage
+ ## 1-05-2025
+
+ - [ ] fix uploadthing button style error
+ - [x] Add ownerShip to files and folders
+ - [x] Upload files to the right folder
+ - [ ] Delete files button
+ - [ ] Real Homepage + onboarding
