@@ -12,9 +12,10 @@ type GoodleDriveCloneProps = {
   files: typeof files.$inferSelect[];
   folders: typeof folders.$inferSelect[];
   parents: typeof folders.$inferSelect[];
+  currentFolderId: number
 }
 
-export default function DriveContents({ files,folders ,parents}: GoodleDriveCloneProps) {
+export default function DriveContents({ files,folders ,parents,currentFolderId}: GoodleDriveCloneProps) {
 
     const navigate = useRouter()
 
@@ -58,6 +59,9 @@ export default function DriveContents({ files,folders ,parents}: GoodleDriveClon
             </ul>
         </div>  
           <UploadButton
+          input={{
+            folderId: currentFolderId
+          }}
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               console.log("Files: ", res);
